@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "shortgit": "git status && git commit -am 'newfile' && git push && git push heroku master"
+    "shortgit": "git status && git commit -am 'newfile' && git push origin master && git push heroku master"
   },
   "author": "",
   "license": "ISC",
