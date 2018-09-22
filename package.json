@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
+    "startmon": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "shortgit": "git status && git commit -am 'newfile' && git push origin master && git push heroku master"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "g": "^2.0.1",
+    "nodemon": "^1.18.4",
+    "socket.io": "^2.1.1"
   }
 }

@@ -1,14 +1,47 @@
-const path = require('path');
-const express = require('express');
+const path = require('path')
+const http = require('http')
+const express = require('express')
+const socketIO = require('socket.io')
 
-var port = process.env.PORT || 3000
+const publicPath = path.join(__dirname, '../public')
+const app = express()
+let server = http.createServer(app)
 
-const publicPath = path.join(__dirname , '../public');
+// permettra a io de communiquer avec le client
+let io = socketIO(server)
 
-const app = express();
+const PORT = process.env.PORT || 4000 
 
-app.use('/', express.static(publicPath)) //remplace le chemin de base de app
+// Permet d'utiliser le chemin vers le dossier public pour avoir le index.html rendu via express
+app.use(express.static(publicPath))
 
-app.listen(port, ()=>{
-    console.log(`listen  is up on ${port}`);
+io.on('connection', (socket)=>{
+    console.log('Nouvelle connection');
+
+    socket.emit('newEmail',{
+        from:'tamere',
+        text: 'Hey youyou',
+        creatAt: 1234
+    });
+    socket.emit('newMessage', {
+        from:'jean',
+        text:'bibap',
+        createAt:123123
+    })
+  
+socket.on('creatMessage', (message) =>{
+    console.log('creatmessage', message)
+})
+
+  
+
+    socket.on('disconnect', ()=>{
+        console.log('disconnect au client')});
 });
+
+server.listen(PORT, () => {
+    console.log(`écoute sur le port ${PORT}`)
+})
+
+console.log(__dirname + '/../public');
+console.log(publicPath)
