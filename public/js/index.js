@@ -1,7 +1,7 @@
 var socket = io();
         socket.on('connect', ()=>{
-            console.log('conecter au server !');          
-           
+            console.log('conecter au server !'); 
+            
         });
 
         socket.on('disconnect', ()=>{

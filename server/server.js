@@ -17,15 +17,31 @@ app.use(express.static(publicPath))
 
 io.on('connection', (socket)=>{
     console.log('Nouvelle connection');
+    socket.emit('newMessage',{
+        from:'admin',
+        text:'Bienvenu sur le server'
+    });
+    socket.broadcast.emit('newMessage',{
+        from:'admin',
+        text:'New user join',
+        creatAt: new Date().getTime()
+    })
 
 socket.on('createMessage', (message) =>{
     console.log('createmessage', message);
+    
     io.emit('newMessage', {
         from: message.from,
         text:message.text,
         creatAt: new Date().getTime()
+       
          
     })
+    // socket.broadcast.emit('newMessage',{
+    //     from: message.from,
+    //         text:message.text,
+    //         creatAt: new Date().getTime()
+    // })
 })
 
   
@@ -38,5 +54,3 @@ server.listen(PORT, () => {
     console.log(`écoute sur le port ${PORT}`)
 })
 
-console.log(__dirname + '/../public');
-console.log(publicPath)
